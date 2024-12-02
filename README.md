@@ -9,4 +9,5 @@ I am doing this in rust to learn the language. It seems interesting but so far i
 ## Progress
 
 Day 1: **
+
 Day 2: **
