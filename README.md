@@ -4,7 +4,7 @@ Advent of Code is an Advent calendar of small programming puzzles for a variety 
 
 See: https://adventofcode.com/
 
-I am doing this in rust to learn the language. It seems interesting but so far it is annoying.
+I am doing this in rust to learn the language. It seems interesting but so far it is annoying..
 
 ## Progress
 
