@@ -11,3 +11,5 @@ I am doing this in rust to learn the language. It seems interesting but so far i
 Day 1: **
 
 Day 2: **
+
+Day 3: **
