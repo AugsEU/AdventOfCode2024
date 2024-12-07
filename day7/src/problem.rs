@@ -32,6 +32,11 @@ impl TestLine
 
     fn try_mult_or_add_recurse(&self, curr_value: i64, idx: usize) -> bool
     {
+        if curr_value > self.m_expected_value
+        {
+            return false;
+        }
+
         // Base case
         if idx == self.m_operands.len()
         {
@@ -53,6 +58,11 @@ impl TestLine
 
     fn try_mult_or_add_recurse_or_concat(&self, curr_value: i64, idx: usize) -> bool
     {
+        if curr_value > self.m_expected_value
+        {
+            return false;
+        }
+
         // Base case
         if idx >= self.m_operands.len()
         {
