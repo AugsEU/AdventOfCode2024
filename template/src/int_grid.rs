@@ -37,7 +37,7 @@ impl IntGrid
             return None;
         }
 
-        let idx = x + y * self.m_height;
+        let idx = x + y * self.m_width;
         return Some(self.m_raw_chars[idx as usize]);
     }
 
@@ -48,7 +48,7 @@ impl IntGrid
             return Err(());
         }
 
-        let idx = x + y * self.m_height;
+        let idx = x + y * self.m_width;
         self.m_raw_chars[idx as usize] = value;
 
         return Ok(());
