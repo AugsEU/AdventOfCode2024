@@ -1,5 +1,4 @@
-use std::collections::HashMap;
-use std::collections::HashSet;
+use fxhash::{FxHashMap, FxHashSet};
 
 use glam::IVec2;
 
@@ -93,13 +92,13 @@ fn search_grid(grid: &CharGrid) -> i32
     let (start, end) = analyse_grid(&grid);
 
     // Previous node(for debug retracing the path).
-    let mut prev: HashMap<Node, Vec<Node>> = HashMap::new();
+    let mut prev: FxHashMap<Node, Vec<Node>> = FxHashMap::default();
 
     // Minimum cost to reach a specific node. If node not in map then it is infinite.
-    let mut node_dist: HashMap<Node, i32> = HashMap::new();
+    let mut node_dist: FxHashMap<Node, i32> = FxHashMap::default();
 
     // Visited nodes
-    let mut visited: HashSet<Node> = HashSet::new();
+    let mut visited: FxHashSet<Node> = FxHashSet::default();
 
     // Nodes to search.
     let start_node = Node{m_pos: start, m_facing: Direction::East};
@@ -161,7 +160,7 @@ fn search_grid(grid: &CharGrid) -> i32
                                     .min()
                                     .expect("No miminum node?");
     let end_nodes: Vec<&Node> = end_nodes.iter().filter(|n| node_dist.get(n) == Some(&min_end_node)).collect();
-    let mut path_positions : HashSet<IVec2> = HashSet::new();
+    let mut path_positions : FxHashSet<IVec2> = FxHashSet::default();
 
     for end_node in end_nodes.iter()
     {
@@ -173,10 +172,10 @@ fn search_grid(grid: &CharGrid) -> i32
 }
 
 
-fn trace_back_path(end: Node, prev_list: &HashMap<Node, Vec<Node>>) -> HashSet<IVec2>
+fn trace_back_path(end: Node, prev_list: &FxHashMap<Node, Vec<Node>>) -> FxHashSet<IVec2>
 {
-    let mut positions: HashSet<IVec2> = HashSet::new();
-    let mut visited: HashSet<Node> = HashSet::new();
+    let mut positions: FxHashSet<IVec2> = FxHashSet::default();
+    let mut visited: FxHashSet<Node> = FxHashSet::default();
     let mut to_search : Vec<Node> = Vec::new();
     to_search.push(end);
 

@@ -1,5 +1,4 @@
-use std::collections::HashMap;
-use std::collections::HashSet;
+use fxhash::{FxHashMap, FxHashSet};
 
 use glam::IVec2;
 
@@ -17,7 +16,7 @@ struct Node
 
 impl Node
 {
-    fn possible_nodes_at(pos: IVec2, grid: &CharGrid) -> [Node; 4]
+    fn possible_nodes_at(pos: IVec2) -> [Node; 4]
     {
         return [ 
             Node{m_pos: pos, m_facing: Direction::North},
@@ -93,13 +92,13 @@ fn search_grid(grid: &CharGrid) -> i32
     let (start, end) = analyse_grid(&grid);
 
     // Previous node(for debug retracing the path).
-    let mut prev: HashMap<Node, Node> = HashMap::new();
+    let mut prev: FxHashMap<Node, Node> = FxHashMap::default();
 
     // Minimum cost to reach a specific node. If node not in map then it is infinite.
-    let mut node_dist: HashMap<Node, i32> = HashMap::new();
+    let mut node_dist: FxHashMap<Node, i32> = FxHashMap::default();
 
     // Visited nodes
-    let mut visited: HashSet<Node> = HashSet::new();
+    let mut visited: FxHashSet<Node> = FxHashSet::default();
 
     // Nodes to search.
     let start_node = Node{m_pos: start, m_facing: Direction::East};
@@ -121,9 +120,7 @@ fn search_grid(grid: &CharGrid) -> i32
         let curr= curr.unwrap();        
         let curr_node = *curr.0;
         let curr_dist = *curr.1;
-
-        //println!("Visiting {:?}", curr_node);
-
+        
         visited.insert(curr_node);
         
         let neighbours = curr_node.get_neighbours(&grid);
@@ -132,7 +129,7 @@ fn search_grid(grid: &CharGrid) -> i32
         {
             if visited.contains(&n.0) { continue; }
 
-            //println!("    N {:?}", n.0);
+            
             let alt = curr_dist + n.1;
             let working_dist = *node_dist.get(&n.0).unwrap_or(&i32::MAX);
 
@@ -146,7 +143,7 @@ fn search_grid(grid: &CharGrid) -> i32
 
     println!("Visited: {} nodes", visited.len());
 
-    let end_nodes = Node::possible_nodes_at(end, &grid);
+    let end_nodes = Node::possible_nodes_at(end);
 
     let min_end_node = *end_nodes.iter()
                                     .filter_map(|n| node_dist.get(n))
