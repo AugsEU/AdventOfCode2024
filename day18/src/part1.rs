@@ -62,7 +62,7 @@ impl PartialOrd for Node
 /// Dijkstra's algorithm on a 2D grid
 /// - `start`: Starting point
 /// - `end`: Endpoint
-/// - `is_passable`: A closure to check if a tile is passable
+/// - `grid`: A grid to check if a tile is passable
 pub fn dijkstra(start: IVec2, end: IVec2, grid: &CharGrid) -> Option<Vec<IVec2>> {
 
     let mut open_set = BinaryHeap::new();
