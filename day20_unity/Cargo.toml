@@ -1,0 +1,17 @@
+[package]
+name = "day20_unity"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+criterion = "0.5.1"
+fxhash = "0.2.1"
+glam = "0.29.2"
+num = "0.4.3"
+rayon = "1.10.0"
+regex = "1.11.1"
+strum = { version = "0.26.3", features = ["derive"] }
+
+[[bench]]
+name = "my_benchmark"
+harness = false
