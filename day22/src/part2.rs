@@ -8,11 +8,11 @@ use rayon::prelude::*;
 
 const NUM_ITER : usize = 2000;
 
-pub fn compute_answer(input: &String) -> i64
+pub fn compute_answer(input: &String) -> i32
 {
-    let all_seeds: Vec<i64> = input.lines().filter_map(|s| s.parse::<i64>().ok()).collect();
-    let all_sequences: Vec<Vec<i64>> = all_seeds.iter().map(|seed| compute_random_numbers(*seed, NUM_ITER)).collect();
-    let all_sequences_delta: Vec<(Vec<i64>, Vec<i64>)> = all_sequences.iter().map(|seq: &Vec<i64>| (seq.clone(), compute_delta_sequence(seq))).collect();
+    let all_seeds: Vec<i32> = input.lines().filter_map(|s| s.parse::<i32>().ok()).collect();
+    let all_sequences: Vec<Vec<i32>> = all_seeds.iter().map(|seed| compute_random_numbers(*seed, NUM_ITER)).collect();
+    let all_sequences_delta: Vec<(Vec<i32>, Vec<i32>)> = all_sequences.iter().map(|seq: &Vec<i32>| (seq.clone(), compute_delta_sequence(seq))).collect();
     
 
     let mut most_money = 0;
@@ -24,7 +24,7 @@ pub fn compute_answer(input: &String) -> i64
                         {
                             compute_profit(seq, delta_seq, &money_cmd)
                         })
-                        .sum::<i64>();
+                        .sum::<i32>();
 
         if total_profit > most_money
         {
@@ -38,7 +38,7 @@ pub fn compute_answer(input: &String) -> i64
     return most_money;
 }
 
-fn compute_profit(seq: &Vec<i64>, delta_seq: &Vec<i64>, cmd: &[i64; 4]) -> i64
+fn compute_profit(seq: &Vec<i32>, delta_seq: &Vec<i32>, cmd: &[i32; 4]) -> i32
 {
     for (i, window) in delta_seq.windows(4).enumerate()
     {
@@ -60,7 +60,7 @@ fn compute_profit(seq: &Vec<i64>, delta_seq: &Vec<i64>, cmd: &[i64; 4]) -> i64
     return 0;
 }
 
-fn compute_delta_sequence(seq: &Vec<i64>) -> Vec<i64>
+fn compute_delta_sequence(seq: &Vec<i32>) -> Vec<i32>
 {
     let mut result = Vec::new();
 
@@ -79,7 +79,7 @@ fn compute_delta_sequence(seq: &Vec<i64>) -> Vec<i64>
     return result;
 }
 
-fn compute_random_numbers(seed: i64, size: usize) -> Vec<i64>
+fn compute_random_numbers(seed: i32, size: usize) -> Vec<i32>
 {
     let mut result = Vec::with_capacity(size);
     result.push(seed);
@@ -98,7 +98,7 @@ fn compute_random_numbers(seed: i64, size: usize) -> Vec<i64>
     return result;
 }
 
-fn next_random_number(seed: i64) -> i64
+fn next_random_number(seed: i32) -> i32
 {
     let step1 = prune(mix(seed, seed * 64));
     let step2 = prune(mix(step1, step1 / 32));
@@ -106,12 +106,12 @@ fn next_random_number(seed: i64) -> i64
     return step3;
 }
 
-fn mix(n1: i64, n2: i64) -> i64
+fn mix(n1: i32, n2: i32) -> i32
 {
     return n1 ^ n2;
 }
 
-fn prune(n: i64) -> i64
+fn prune(n: i32) -> i32
 {
     return n % 16777216;
 }

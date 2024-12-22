@@ -1,5 +1,5 @@
 
-const ALL_CMDS : [[i64; 4]; 130321] = 
+const ALL_CMDS : [[i32; 4]; 130321] = 
 [
     [-9, -9, -9, -9],
     [-9, -9, -9, -8],
@@ -130324,7 +130324,7 @@ const ALL_CMDS : [[i64; 4]; 130321] =
     [9, 9, 9, 9]
 ];
 
-pub fn all_cmds_iter() -> std::slice::Iter<'static, [i64; 4]>
+pub fn all_cmds_iter() -> std::slice::Iter<'static, [i32; 4]>
 {
     let iter = ALL_CMDS.iter();
     return iter;
