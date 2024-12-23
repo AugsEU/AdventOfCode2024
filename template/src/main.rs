@@ -24,8 +24,8 @@ fn main()
     let file_contents = read_all_lines(file_path);
 
     let part1 = part1::compute_answer(&file_contents);
-    let part2 = part2::compute_answer(&file_contents);
-
     println!("Part 1: {}", part1);
-    println!("Part 2: {}", part2);
+
+    // let part2 = part2::compute_answer(&file_contents);
+    // println!("Part 2: {}", part2);
 }

@@ -9,14 +9,14 @@ mod tests
     #[test]
     fn part_1_test() 
     {
-        let result = part1::compute_answer(&String::from(TEST_STR));
+        let result = part1::compute_answer(TEST_STR);
         assert_eq!(result, 0);
     }
 
-    #[test]
-    fn part_2_test() 
-    {
-        let result = part2::compute_answer(&String::from(TEST_STR));
-        assert_eq!(result, 0);
-    }
+    // #[test]
+    // fn part_2_test() 
+    // {
+    //     let result = part2::compute_answer(TEST_STR);
+    //     assert_eq!(result, 0);
+    // }
 }
