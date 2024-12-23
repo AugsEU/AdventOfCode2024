@@ -26,6 +26,6 @@ fn main()
     // let part1 = part1::compute_answer(&file_contents);
     // println!("Part 1: {}", part1);
 
-    let part2 = part2::compute_answer(&file_contents, 25);
+    let part2 = part2::compute_answer(&file_contents, 24);
     println!("Part 2: {}", part2);
 }

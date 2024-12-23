@@ -20,7 +20,7 @@ mod tests
     #[test]
     fn part_2_test() 
     {
-        let result = part2::compute_answer(&String::from(TEST_STR), 2);
+        let result = part2::compute_answer(&String::from(TEST_STR), 1);
         assert_eq!(result, 126384);
     }
 }
