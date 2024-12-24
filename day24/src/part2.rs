@@ -207,35 +207,6 @@ impl Machine
         return advanced_eq;
     }
 
-    fn gather_all_wires_affecting(&self, wire: &String) -> HashSet<String>
-    {
-        let mut result = HashSet::new();
-
-        if let Some(idx) = self.equation_lookup.get(wire)
-        {
-            let eq = &self.equations[*idx];
-
-            if self.is_wire(&eq.left)
-            {
-                result.insert(eq.left.clone());
-                result.extend(self.gather_all_wires_affecting(&eq.left));
-            }
-
-            if self.is_wire(&eq.right)
-            {
-                result.insert(eq.right.clone());
-                result.extend(self.gather_all_wires_affecting(&eq.right));
-            }
-        }
-
-        return result;
-    }
-
-    fn is_wire(&self, wire: &String) -> bool
-    {
-        return self.equation_lookup.contains_key(wire);
-    }
-
     fn swap_wires(&mut self, wire1_idx: usize, wire2_idx: usize)
     {
         assert!(wire1_idx != wire2_idx);
@@ -248,50 +219,6 @@ impl Machine
 
         self.equations[wire1_idx].result = wire2;
         self.equations[wire2_idx].result = wire1;
-    }
-
-    fn contains_loop(&self) -> bool
-    {
-        for i in 0..=45
-        {
-            let z_reg_name = format!("z{:02}", i);
-            if self.scan_for_loop(&z_reg_name, &mut HashSet::new())
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    fn scan_for_loop(&self, start: &String, visited: &mut HashSet<String>) -> bool
-    {
-        let eq_idx = self.equation_lookup.get(start);
-        if eq_idx.is_none()
-        {
-            return false;
-        }
-
-        if visited.contains(start)
-        {
-            return true;
-        }
-
-        visited.insert(start.clone());
-
-        let eq_idx = *eq_idx.unwrap();
-        let eq = &self.equations[eq_idx];
-
-        if self.scan_for_loop(&eq.left, &mut visited.clone()) 
-        {
-            return true;
-        }
-        else if self.scan_for_loop(&eq.right, visited) 
-        {
-            return true
-        }
-
-        return false;
     }
 }
 
