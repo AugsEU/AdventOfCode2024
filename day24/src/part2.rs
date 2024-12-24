@@ -98,8 +98,7 @@ impl Equation
 struct Machine
 {
     known_values: HashMap<String, bool>,
-    equations: Vec<Equation>,
-    equation_lookup: HashMap<String, usize>
+    equations: Vec<Equation>
 }
 
 impl Machine
@@ -125,19 +124,11 @@ impl Machine
                                     .filter(|l| l.len() > 0)
                                     .map(|l| Equation::from(l))
                                     .collect();
-
-        let mut eq_lookup = HashMap::new();
-
-        for (i, eq) in equations.iter().enumerate()
-        {
-            eq_lookup.insert(eq.result.clone(), i);
-        }
         
         Self
         {
             known_values: known_values,
-            equations: equations,
-            equation_lookup: eq_lookup
+            equations: equations
         }
     }
 
@@ -190,7 +181,6 @@ impl Machine
                 let eq_name = self.equations[i].result.clone();
 
                 // Remove equation as we no longer need it.
-                self.equation_lookup.remove(&eq_name);
                 self.equations.remove(i);
 
                 let added = self.known_values.insert(eq_name, new_value).is_none();
@@ -213,9 +203,6 @@ impl Machine
 
         let wire1 = self.equations[wire1_idx].result.clone();
         let wire2 = self.equations[wire2_idx].result.clone();
-
-        let old_wire1_idx = self.equation_lookup.insert(wire1.clone(), wire2_idx).unwrap();
-        let old_wire2_idx = self.equation_lookup.insert(wire2.clone(), wire1_idx).unwrap();
 
         self.equations[wire1_idx].result = wire2;
         self.equations[wire2_idx].result = wire1;
