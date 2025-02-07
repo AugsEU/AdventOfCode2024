@@ -82,11 +82,11 @@ fn find_potential_shrotcuts(grid: &Grid) -> i64
 {
     return (1..(GRID_SIZE-1))
         .into_par_iter()
-        .map(|x| 
+        .map(|y| 
             {
                 (1..(GRID_SIZE-1))
-                    .into_par_iter()
-                    .map(|y| find_shortcuts_at(IVec2::new(x, y), grid))
+                    //.into_par_iter()
+                    .map(|x| find_shortcuts_at(IVec2::new(x, y), grid))
                     .sum::<i16>() as i64
             })
         .sum();
